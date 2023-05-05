@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="0dp"
+    android:layout_marginTop="0dp"
+    tools:context=".Diary2">
+    <include
+        android:id="@+id/appbar"
+        layout="@layout/appbar"/>
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggleGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appbar"
+        app:checkedButton="@id/btn_one_way"
+        app:singleSelection="true"
+        android:layout_margin="10dp">
+
+        <Button
+            android:id="@+id/btn_one_way"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/md_theme_dark_onPrimaryContainer"
+            android:text="@string/alarms"
+            android:textColor="#171616"
+            app:iconTint="#0B0A0A" />
+
+        <Button
+            android:id="@+id/btn_round"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Quantities"
+            android:textColor="#171616"
+            app:strokeColor="@color/md_theme_dark_onPrimaryContainer" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView2"
+        android:name="si.uni_lj.fe.tnuv.vaja_tecaj.Alarms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_alarms" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/fragmentContainerView2"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#F2EAFD"
+        android:ems="10"
+        android:hint="@string/hint_vnos"
+        android:inputType="text"
+        android:textAlignment="center" />
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextTextPersonName"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/md_theme_light_primaryContainer"
+        android:onClick="InsertDatabase"
+        android:text="@string/button_diary"
+        android:textColor="#131313"
+        android:layout_margin="10dp"/>
+</RelativeLayout>
