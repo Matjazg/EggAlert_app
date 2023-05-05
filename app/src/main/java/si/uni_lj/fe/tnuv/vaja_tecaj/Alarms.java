@@ -46,7 +46,7 @@ public class Alarms extends Fragment {
         editText = getView().findViewById(R.id.editTextTextPersonName);
         calendarView = getView().findViewById(R.id.calendarView5);
         btnSave=getView().findViewById(R.id.buttonSave);
-        //ob pritisku na gumb kličemo InsertDatabase oz. shranimo tekst v SQL
+        //ob pritisku na gumb se izvede metoda InsertDatabase oz. shranimo tekst v SQL
         btnSave.setOnClickListener(this::InsertDatabase);
         //poslušalec dogodka: objekt z metodo
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
