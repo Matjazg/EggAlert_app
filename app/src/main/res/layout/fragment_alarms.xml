@@ -14,7 +14,7 @@
         android:layout_marginTop="150dp" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/inputEvent"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_below="@id/calendarView5"
@@ -31,7 +31,7 @@
         android:id="@+id/buttonSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextTextPersonName"
+        android:layout_below="@id/inputEvent"
         android:layout_centerInParent="true"
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/md_theme_light_primaryContainer"

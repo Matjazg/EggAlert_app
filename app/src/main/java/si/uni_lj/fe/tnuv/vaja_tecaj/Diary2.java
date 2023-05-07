@@ -69,6 +69,7 @@ public class Diary2 extends AppCompatActivity {
         try {
             Cursor cursor = sqLiteDatabase.rawQuery(query, null);
             cursor.moveToFirst();
+            //tu spremeni prikaz alarma, zdaj prikazuje kr v vnosnem polju
             editText.setText(cursor.getString(0));
         }
         catch (Exception e){

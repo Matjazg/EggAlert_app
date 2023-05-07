@@ -15,20 +15,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/appbar"
-        app:checkedButton="@id/button_alarms"
         app:singleSelection="true"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        app:checkedButton="@id/button_alarms">
 
         <Button
             android:id="@+id/button_alarms"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/md_theme_dark_onPrimaryContainer"
             android:text="@string/alarms"
             android:textColor="#171616"
-            app:iconTint="#0B0A0A" />
+            app:iconTint="#0B0A0A"
+            app:strokeColor="@color/md_theme_light_primaryContainer"
+            app:strokeWidth="4dp" />
 
         <Button
             android:id="@+id/button_quantities"
@@ -38,7 +39,8 @@
             android:layout_weight="1"
             android:text="@string/btn_quantities"
             android:textColor="#171616"
-            app:strokeColor="@color/md_theme_dark_onPrimaryContainer" />
+            app:strokeColor="@color/md_theme_dark_onPrimaryContainer"
+            app:strokeWidth="4dp" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 

@@ -13,11 +13,13 @@ public class DiarySQL extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        //onCreate: izvede samo, če file, ki je bil ustvarjen, še ne obstaja
 
     }
 
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+    //se izvede, če file že obstaja in je št. verzije nižja, kot tista v konstruktorju
     }
 }

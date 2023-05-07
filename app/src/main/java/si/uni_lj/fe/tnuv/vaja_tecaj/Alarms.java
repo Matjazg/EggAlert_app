@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,7 +27,7 @@ public class Alarms extends Fragment {
 
     //Prikaz koledarja
     private DiarySQL dbHandler;
-    private EditText editText;
+    private EditText eventText;
     private CalendarView calendarView;
     String selectedDate;
     private SQLiteDatabase sqLiteDatabase;
@@ -43,11 +44,17 @@ public class Alarms extends Fragment {
 
     public void onViewCreated(View view, Bundle savedInstanceState){
         //obvezno getView v fragmentu!!
-        editText = getView().findViewById(R.id.editTextTextPersonName);
+        eventText = getView().findViewById(R.id.inputEvent);
         calendarView = getView().findViewById(R.id.calendarView5);
         btnSave=getView().findViewById(R.id.buttonSave);
         //ob pritisku na gumb se izvede metoda InsertDatabase oz. shranimo tekst v SQL
-        btnSave.setOnClickListener(this::InsertDatabase);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InsertDatabase(v);
+                Toast.makeText(getContext(), "Successfully saved", Toast.LENGTH_SHORT).show();
+            }
+        });
         //poslušalec dogodka: objekt z metodo
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -59,9 +66,9 @@ public class Alarms extends Fragment {
 
             }
         });
-        //objekt, ki kreira tabelo v database
+        //objekt, ki kreira tabelo v SQL database
         try {
-            //context preveri, če je OK!!
+            //context preveri, če je OK!!, name: ime tabele, version: št. verzije
             dbHandler = new DiarySQL(getContext(), "CalendarDatabase", null, 1);
             sqLiteDatabase = dbHandler.getWritableDatabase();
             sqLiteDatabase.execSQL("Create table EventCalendar(Date TEXT, Event TEXT)");
@@ -70,27 +77,29 @@ public class Alarms extends Fragment {
         }
 
     }
-
+    //vstavljanje v tabelo
     public void InsertDatabase(View view){
         ContentValues contentValues =new ContentValues();
         //shranimo datum v tabelo SQL
         contentValues.put("Date",selectedDate);
         //shranimo nov event v tabelo
-        contentValues.put("Event",editText.getText().toString());
+        contentValues.put("Event",eventText.getText().toString());
         sqLiteDatabase.insert("EventCalendar", null,contentValues );
 
     }
-    //funkcija, ki prebere podatke iz SQL database pri izbranem datumu
+    //funkcija, ki prebere podatke iz SQL tabele EventCalendar pri izbranem datumu
     public void ReadDatabase(View view){
         String query="Select Event from EventCalendar where Date="+ selectedDate;
         try {
+            //nastavimo kurzor, od kod začne brati tabelo
             Cursor cursor = sqLiteDatabase.rawQuery(query, null);
             cursor.moveToFirst();
-            editText.setText(cursor.getString(0));
+            //tu spremeni prikaz alarma, zdaj prikazuje kr v vnosnem polju
+            eventText.setText(cursor.getString(0));
         }
         catch (Exception e){
             e.printStackTrace();
-            editText.setText("");
+            eventText.setText("");
         }
     }
 }

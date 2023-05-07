@@ -4,13 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     tools:context=".Quantities">
 
 
-    <CalendarView
-        android:id="@+id/calendarView1"
+    <com.applandeo.materialcalendarview.CalendarView
+        android:id="@+id/calendarQuantities"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp" />
+        android:layout_marginTop="150dp"
+        app:headerColor="@color/md_theme_light_secondary"
+        app:todayLabelColor="@color/md_theme_light_inversePrimary"
+        app:selectionColor="@color/md_theme_light_secondary"/>
 
 </RelativeLayout>
