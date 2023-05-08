@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
+import com.applandeo.materialcalendarview.CalendarView;
+
+import com.google.android.material.datepicker.MaterialCalendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,7 +17,7 @@ import android.widget.CalendarView;
  * create an instance of this fragment.
  */
 public class Quantities extends Fragment {
-    CalendarView calendarView;
+   CalendarView calendarView;
 
 
     public Quantities() {
@@ -27,9 +29,11 @@ public class Quantities extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v= inflater.inflate(R.layout.fragment_quantities, container, false);
-        calendarView = (CalendarView)v.findViewById(R.id.calendarQuantities);
+        View v = inflater.inflate(R.layout.fragment_quantities, container, false);
+        calendarView =(CalendarView)v.findViewById(R.id.calendarQuantities);
 
-        return v;
+        return  v;
+
+
     }
 }
