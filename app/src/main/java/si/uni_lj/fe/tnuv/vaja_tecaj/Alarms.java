@@ -69,6 +69,7 @@ public class Alarms extends Fragment {
         //objekt, ki kreira tabelo v SQL database
         try {
             //context preveri, če je OK!!, name: ime tabele, version: št. verzije
+            //pri fragmentu namesto this -> getContext()
             dbHandler = new DiarySQL(getContext(), "CalendarDatabase", null, 1);
             sqLiteDatabase = dbHandler.getWritableDatabase();
             sqLiteDatabase.execSQL("Create table EventCalendar(Date TEXT, Event TEXT)");
