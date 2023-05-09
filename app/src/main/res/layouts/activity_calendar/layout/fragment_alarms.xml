@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Calendar.Alarms">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <CalendarView
+        android:id="@+id/calendarView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp" />
+
+    <EditText
+        android:id="@+id/inputEvent"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/calendarView5"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#F2EAFD"
+        android:ems="10"
+        android:hint="@string/hint_vnos"
+        android:inputType="text"
+        android:textAlignment="center" />
+
+
+    <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/inputEvent"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/md_theme_light_primaryContainer"
+        android:text="@string/button_diary"
+        android:textColor="#131313"
+        android:layout_margin="10dp"/>
+
+</RelativeLayout>

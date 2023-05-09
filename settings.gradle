@@ -14,5 +14,5 @@ dependencyResolutionManagement {
         maven { url 'https://jitpack.io' }
     }
 }
-rootProject.name = "Vaja_tecaj"
+rootProject.name = "EggAlert_v1"
 include ':app'

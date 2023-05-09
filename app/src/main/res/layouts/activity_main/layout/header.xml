@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:orientation="vertical"
+    android:background="?colorOnSecondary"
+    >
+
+    <ImageView
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/egg_alert_symbol" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/satoshi_variable"
+        android:text="EggAlert"
+        android:layout_marginLeft="20dp"
+        android:textColor="?colorSecondary"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:typeface="normal" />
+
+
+</LinearLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/md_theme_light_onPrimaryContainer">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/menu_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/burger_menu_icon"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/text_ime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="52dp"
+            android:layout_toEndOf="@id/menu_icon"
+            android:text="EggAlert"
+            android:textColor="#FDFCFC"
+            android:textSize="20sp"/>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

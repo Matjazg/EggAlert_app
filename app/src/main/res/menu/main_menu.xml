@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="Home"
+            android:icon="@drawable/home_icon"/>
+        <item
+            android:id="@+id/nav_hatcheries"
+            android:title="@string/hatcheries"
+            android:icon="@drawable/hatcheries_icon" />
+        <item
+            android:id="@+id/nav_notifications"
+            android:title="@string/notifications"
+            android:icon="@drawable/notifications_icon"/>
+        <item
+            android:id="@+id/nav_calendar"
+            android:title="@string/calendar"
+            android:icon="@drawable/diary_icon"/>
+        <item
+            android:id="@+id/nav_statistics"
+            android:title="@string/statistics"
+            android:icon="@drawable/statistics_icon"/>
+        <item
+            android:id="@+id/nav_settings"
+            android:title="Settings"
+            android:icon="@drawable/settings_icon"/>
+    </group>
+
+
+</menu>

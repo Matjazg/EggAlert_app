@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Calendar.Diary">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/calendar_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?colorOnPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/calendar"
+        app:maxButtonHeight="56dp"
+        />
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggleGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/calendar_toolbar"
+        app:singleSelection="true"
+        android:layout_margin="10dp"
+        app:checkedButton="@id/button_alarms">
+
+        <Button
+            android:id="@+id/button_alarms"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/alarms"
+            android:textColor="#171616"
+            app:iconTint="#0B0A0A"
+            app:strokeColor="@color/md_theme_light_primaryContainer"
+            app:strokeWidth="4dp" />
+
+        <Button
+            android:id="@+id/button_quantities"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_quantities"
+            android:textColor="#171616"
+            app:strokeColor="@color/md_theme_dark_onPrimaryContainer"
+            app:strokeWidth="4dp" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView2"
+        android:name="si.uni_lj.fe.tnuv.eggalert_v1.Calendar.Alarms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_alarms" />
+
+
+</RelativeLayout>
