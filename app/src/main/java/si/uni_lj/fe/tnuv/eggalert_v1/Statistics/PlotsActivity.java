@@ -3,7 +3,9 @@ package si.uni_lj.fe.tnuv.eggalert_v1.Statistics;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -13,6 +15,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
 
+import si.uni_lj.fe.tnuv.eggalert_v1.MainActivity;
 import si.uni_lj.fe.tnuv.eggalert_v1.R;
 
 public class PlotsActivity extends AppCompatActivity {
@@ -53,5 +56,10 @@ public class PlotsActivity extends AppCompatActivity {
 
         return dataVals;
 
+    }
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), StatisticsActivity.class);
+        startActivity(myIntent);
+        return true;
     }
 }

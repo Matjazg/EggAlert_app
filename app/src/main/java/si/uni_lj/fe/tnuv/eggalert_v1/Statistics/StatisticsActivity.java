@@ -79,4 +79,9 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         Intent intent = new Intent(this,PlotsActivity.class);
         startActivity(intent);
     }
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(myIntent);
+        return true;
+    }
 }

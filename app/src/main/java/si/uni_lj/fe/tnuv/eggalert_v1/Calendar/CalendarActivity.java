@@ -50,7 +50,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
                         //replace(trenutni fragment, novi fragment): zamenjamo fragment z drugim,
                         .replace(R.id.fragmentContainerView2, Alarms.class, null)
                         .setReorderingAllowed(true)
-                        .addToBackStack("name") // name can be null
+                        .addToBackStack(null) // name can be null
                         .commit();
                 break;
 
@@ -61,20 +61,31 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
                         //replace(trenutni fragment, novi fragment): zamenjamo fragment z drugim,
                         .replace(R.id.fragmentContainerView2, Quantities.class, null)
                         .setReorderingAllowed(true)
-                        .addToBackStack("name") // name can be null
+                        .addToBackStack(null) // name can be null
                         .commit();
 
                 break;
-
 
         }
     }
 
     @Override
     public void onBackPressed() {
+        // Navigate back to the main activity
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+    @Override
+    /*
+    public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }*/
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(myIntent);
+        return true;
     }
 }
 
