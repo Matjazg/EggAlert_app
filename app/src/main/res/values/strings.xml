@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">EggAlert</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_notifications">NotificationsActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="eggalert_title">EggAlert</string>
+    <string name="eggalert_moto">Check your eggs</string>
+    <string name="hatcheries">Hatcheries</string>
+    <string name="notifications">Notifications</string>
+    <string name="calendar">Calendar</string>
+
+    <string name="statistics">Statistics</string>
+
+    <string name="alarms">Alarms</string>
+    <string name="hint_vnos">Event name</string>
+    <string name="button_diary">Save</string>
+
+    <string name="diary">Diary</string>
+    <string name="show_plots">Show</string>
+    <string name="T_checkbox">Temperature</string>
+    <string name="P_checkbox">Pressure</string>
+    <string name="Temp">22°C</string>
+
+    <string name="btn_quantities">Quantities</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="plots">Plots</string>
+
+</resources>

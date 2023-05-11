@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Statistics.StatisticsActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/statistics_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?colorOnPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/statistics"
+        app:maxButtonHeight="56dp"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:layout_below="@id/statistics_toolbar"
+        android:id="@+id/card_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="15dp"
+        android:layout_rowWeight="1"
+        app:cardBackgroundColor="@color/md_theme_light_secondaryContainer"
+        app:cardElevation="10dp">
+
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/histogram"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_below="@id/statistics_toolbar">
+
+        </com.github.mikephil.charting.charts.BarChart>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/card_top"
+        android:rowCount="1"
+        android:columnCount="2"
+        android:layout_marginBottom="0dp">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="15dp"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/md_theme_light_secondaryContainer"
+            app:cardElevation="10dp">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="123dp"
+                    android:layout_height="113dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    app:srcCompat="@drawable/graf_ikona" />
+
+                <Button
+                    android:id="@+id/button4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/imageView"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    android:drawableEnd="@drawable/baseline_arrow_forward_24"
+                    android:text="@string/show_plots" />
+
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="@color/md_theme_light_secondaryContainer"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/prikazT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="35dp"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="@string/Temp"
+                    android:textSize="35dp" />
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </GridLayout>
+
+</RelativeLayout>
