@@ -33,5 +33,17 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="plots">Plots</string>
+    <string name="btnScan">SCAN</string>
+    <string name="btnScanStop">STOP</string>
+    <string name="et_hatchery_name_hint">Enter your hatchery name</string>
+    <string name="connect_new_hatchery">Connect a new hatchery</string>
+    <string name="pair_with">Pair with</string>
+    <string name="device_name_example">EggAlert</string>
+    <string name="cancel">cancel</string>
+    <string name="pair">pair</string>
+    <string name="new_hatchery">New hatchery</string>
+    <string name="write_text">add event</string>
+    <string name="save_input">Save</string>
+    <string name="outputText">TextView</string>
 
 </resources>

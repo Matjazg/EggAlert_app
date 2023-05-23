@@ -38,8 +38,9 @@
             android:layout_weight="1"
             android:text="@string/alarms"
             android:textColor="#171616"
+            app:cornerRadius="20dp"
             app:iconTint="#0B0A0A"
-            app:strokeColor="@color/md_theme_light_primaryContainer"
+            app:strokeColor="?colorPrimaryContainer"
             app:strokeWidth="4dp" />
 
         <Button
@@ -50,14 +51,15 @@
             android:layout_weight="1"
             android:text="@string/btn_quantities"
             android:textColor="#171616"
-            app:strokeColor="@color/md_theme_dark_onPrimaryContainer"
-            app:strokeWidth="4dp" />
+            app:strokeColor="?colorPrimaryContainer"
+            app:strokeWidth="4dp"
+            app:cornerRadius="20dp" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView2"
-        android:name="si.uni_lj.fe.tnuv.eggalert_v1.Calendar.Alarms"
+        android:name="si.uni_lj.fe.tnuv.eggalert_v1.Calendar.AlarmCal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_alarms" />

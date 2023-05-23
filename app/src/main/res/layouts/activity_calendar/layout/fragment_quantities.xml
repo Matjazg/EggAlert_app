@@ -15,8 +15,8 @@
         android:layout_marginTop="150dp"
 
         app:headerColor="?colorSecondary"
-        app:todayLabelColor="@color/md_theme_light_inversePrimary"
-        app:selectionColor="@color/md_theme_light_secondary"
+        app:todayLabelColor="?colorPrimaryInverse"
+        app:selectionColor="?colorSecondary"
         />
 
 </RelativeLayout>

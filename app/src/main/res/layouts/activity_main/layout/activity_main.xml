@@ -88,11 +88,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView2">
 
                 <androidx.cardview.widget.CardView
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:id="@+id/cvHatcheries"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:id="@+id/cvHatcheries">
+                    app:cardCornerRadius="7dp"
+                    app:cardElevation="5dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -121,10 +125,14 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvNotifications"
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackground"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    app:cardCornerRadius="7dp"
+                    app:cardElevation="5dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -165,10 +173,14 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvCalendar"
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackground"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    app:cardCornerRadius="7dp"
+                    app:cardElevation="5dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -197,10 +209,14 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvStatistics"
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackground"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    app:cardCornerRadius="7dp"
+                    app:cardElevation="5dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"

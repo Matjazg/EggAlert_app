@@ -42,7 +42,7 @@ public class Diary extends AppCompatActivity implements View.OnClickListener {
                 //transakcija iz enega fragmenta v drugega (v bistvu prikaže drug fragment)
                 fragmentManager.beginTransaction()
                         //replace(trenutni fragment, novi fragment): zamenjamo fragment z drugim,
-                        .replace(R.id.fragmentContainerView2, Alarms.class, null)
+                        .replace(R.id.fragmentContainerView2, AlarmCal.class, null)
                         .setReorderingAllowed(true)
                         .addToBackStack("name") // name can be null
                         .commit();
