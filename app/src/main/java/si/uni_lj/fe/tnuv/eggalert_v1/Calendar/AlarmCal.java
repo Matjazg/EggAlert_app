@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Locale;
 
 import si.uni_lj.fe.tnuv.eggalert_v1.R;
+import si.uni_lj.fe.tnuv.eggalert_v1.SQL_handling.BLEdb2;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -114,9 +115,9 @@ public class AlarmCal extends Fragment {
         //vstavimo datum in tekst v SQL, kličemo metodo insertCalendarData
         try {
 
-            CalendarDB db = new CalendarDB(getContext());
+            BLEdb2 db = new BLEdb2(getContext());
             db.open();
-            db.insertCalendarData(selectedDate, textInput);
+            //db.insertCalendarData(selectedDate, textInput);
             db.close();
             Toast.makeText(getContext(), "Successfully saved", Toast.LENGTH_SHORT).show();
         }

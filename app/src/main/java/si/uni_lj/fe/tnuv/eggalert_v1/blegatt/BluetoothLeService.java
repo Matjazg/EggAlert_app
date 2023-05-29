@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.database.SQLException;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
@@ -45,9 +46,11 @@ import java.util.Set;
 import java.util.UUID;
 
 import pub.devrel.easypermissions.EasyPermissions;
+import si.uni_lj.fe.tnuv.eggalert_v1.Calendar.CalendarDB;
 import si.uni_lj.fe.tnuv.eggalert_v1.Hatcheries.HatcheryStateListener;
 import si.uni_lj.fe.tnuv.eggalert_v1.Notifications.Notifications;
 import si.uni_lj.fe.tnuv.eggalert_v1.R;
+import si.uni_lj.fe.tnuv.eggalert_v1.SQL_handling.BLEdb2;
 
 /**
  * Service for managing connection and data communication with a GATT server hosted on a
@@ -346,10 +349,11 @@ public class BluetoothLeService extends Service implements EasyPermissions.Permi
                         // Create a Notification object
                         Notifications notification = new Notifications(mBluetoothDeviceAddress, "EggDetected", "Egg was detected in a hatchery",timestamp);
                         sendNotification(notification);
+
                     } else {
                         sensorData.setEggPresence(false);
                     }
-
+                    saveToSQL(sensorData);
                 } else if (intent.hasExtra("TEMPERATURE")) {
                     data = intent.getStringExtra("TEMPERATURE");
                     sensorData.setTemperature(data);
@@ -707,6 +711,19 @@ public class BluetoothLeService extends Service implements EasyPermissions.Permi
 
         notificationsList.add(notification);
 
+    }
+    private void saveToSQL(bleSensorData sensorData)
+    {
+        try {
+
+            BLEdb2 db = new BLEdb2(this);
+            db.open();
+            db.insertData(sensorData.getTimeStamp(), Boolean.toString(sensorData.getEggPresence()), sensorData.getTemperature(), sensorData.getPressure());
+            db.close();
+            Toast.makeText(this, "Successfully saved", Toast.LENGTH_SHORT).show();
+        }
+        catch (SQLException e){
+        }
     }
     public List<Notifications> getNotificationsList()
     {
