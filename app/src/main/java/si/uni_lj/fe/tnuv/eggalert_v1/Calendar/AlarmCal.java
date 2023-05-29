@@ -67,7 +67,7 @@ public class AlarmCal extends Fragment {
         buttonSave=getView().findViewById(R.id.button_save);
         // Prikaz eventov z ikonami v CalendarView
         calendarView.setEvents(events);
-
+        calendarView.setBackgroundColor(Color.RED);
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

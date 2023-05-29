@@ -37,32 +37,36 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/alarms"
-            android:textColor="#171616"
             app:cornerRadius="20dp"
-            app:iconTint="#0B0A0A"
-            app:strokeColor="?colorPrimaryContainer"
-            app:strokeWidth="4dp" />
-
-        <Button
-            android:id="@+id/button_quantities"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/btn_quantities"
-            android:textColor="#171616"
-            app:strokeColor="?colorPrimaryContainer"
+            android:textColor="?colorOnSecondaryContainer"
+            app:strokeColor="?colorOnSecondaryContainer"
+            android:backgroundTint="?colorSecondaryContainer"
             app:strokeWidth="4dp"
-            app:cornerRadius="20dp" />
 
-    </com.google.android.material.button.MaterialButtonToggleGroup>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView2"
-        android:name="si.uni_lj.fe.tnuv.eggalert_v1.Calendar.AlarmCal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_alarms" />
+             />
+
+<Button
+    android:id="@+id/button_quantities"
+    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:text="@string/btn_quantities"
+    android:textColor="?colorOnSecondaryContainer"
+    app:strokeColor="?colorOnSecondaryContainer"
+    android:backgroundTint="?colorSecondaryContainer"
+    app:strokeWidth="4dp"
+    app:cornerRadius="20dp" />
+
+</com.google.android.material.button.MaterialButtonToggleGroup>
+
+<androidx.fragment.app.FragmentContainerView
+android:id="@+id/fragmentContainerView2"
+android:name="si.uni_lj.fe.tnuv.eggalert_v1.Calendar.AlarmCal"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+tools:layout="@layout/fragment_calendar" />
 
 
 </RelativeLayout>

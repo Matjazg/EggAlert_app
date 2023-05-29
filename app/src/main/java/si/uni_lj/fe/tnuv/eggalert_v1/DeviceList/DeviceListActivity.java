@@ -3,6 +3,8 @@ package si.uni_lj.fe.tnuv.eggalert_v1.DeviceList;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.Dialog;
@@ -19,8 +21,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -43,6 +48,9 @@ import si.uni_lj.fe.tnuv.eggalert_v1.blegatt.bleSensorData;
 
 public class DeviceListActivity extends AppCompatActivity {
 
+    private LeDeviceListAdapter mLeDeviceListAdapter;
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
     private BluetoothLeService mBluetoothLeService;
     private boolean mBound = false;
     private String mDeviceName;
@@ -74,10 +82,10 @@ public class DeviceListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list);
         btnScan = (Button) findViewById(R.id.btnScan);
-        lvDevices = (ListView) findViewById(R.id.lvDevices);
         //create a simple array adapter to display scanned devices
+        /*
         listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, devicesList);
-        lvDevices.setAdapter(listAdapter);
+        lvDevices.setAdapter(listAdapter);*/
 
         //Toolbar
         Toolbar toolbar = findViewById(R.id.new_device_toolbar);
@@ -90,6 +98,10 @@ public class DeviceListActivity extends AppCompatActivity {
 
         checkBtPermissions();
         enableBt();
+        // Initializes list view adapter.
+        mLeDeviceListAdapter = new LeDeviceListAdapter(this, mLeDevices);
+        lvDevices = findViewById(R.id.list_devices);
+        lvDevices.setAdapter(mLeDeviceListAdapter);
 
         btnScan.setOnClickListener(v ->
         {
@@ -281,22 +293,24 @@ public class DeviceListActivity extends AppCompatActivity {
                                     new String[]{Manifest.permission.BLUETOOTH_SCAN},
                                     REQUEST_BT_PERMISSIONS);
                         }
-                        mBluetoothLeScanner.stopScan(mLeScanCallback);
+                        mBluetoothLeScanner.stopScan((ScanCallback) mLeScanCallback);
                         btnScan.setText("SCAN");
                     }
                 }, 10000);
 
                 mScanning = true;
-                mBluetoothLeScanner.startScan(mLeScanCallback);
+                mBluetoothLeScanner.startScan((ScanCallback) mLeScanCallback);
 
             }
 
         } else {
             Log.i("Scanning", "stop");
             mScanning = false;
-            mBluetoothLeScanner.stopScan(mLeScanCallback);
+            mBluetoothLeScanner.stopScan((ScanCallback) mLeScanCallback);
         }
     }
+
+
 
     private ScanCallback mLeScanCallback =
             new ScanCallback() {
@@ -318,16 +332,20 @@ public class DeviceListActivity extends AppCompatActivity {
                             Log.i("BLE", device.toString());
                             devicesList.add(itemToAdd);
                         }
+                        mLeDeviceListAdapter.addDevice(result.getDevice());
+                        mLeDeviceListAdapter.notifyDataSetChanged();
+                        /*
                         if(!mLeDevices.contains(result.getDevice())) {
                             mLeDevices.add(result.getDevice());
-                            /*if(device.equals("EggAlert"))
+                            if(device.equals("EggAlert"))
                             {
                                 mDeviceAddress = result.getDevice().getAddress();
                                 Intent gattServiceIntent = new Intent(DeviceListActivity.this, BluetoothLeService.class);
                                 bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
-                            }*/
+                            }
                         }
-                        listAdapter.notifyDataSetChanged();
+                        listAdapter.notifyDataSetChanged();*/
+
                     }
 
 
@@ -350,4 +368,5 @@ public class DeviceListActivity extends AppCompatActivity {
         startActivity(myIntent);
         return true;
     }
+
 }

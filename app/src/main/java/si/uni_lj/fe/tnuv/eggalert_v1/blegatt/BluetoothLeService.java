@@ -2,6 +2,9 @@ package si.uni_lj.fe.tnuv.eggalert_v1.blegatt;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -18,17 +21,23 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -37,6 +46,8 @@ import java.util.UUID;
 
 import pub.devrel.easypermissions.EasyPermissions;
 import si.uni_lj.fe.tnuv.eggalert_v1.Hatcheries.HatcheryStateListener;
+import si.uni_lj.fe.tnuv.eggalert_v1.Notifications.Notifications;
+import si.uni_lj.fe.tnuv.eggalert_v1.R;
 
 /**
  * Service for managing connection and data communication with a GATT server hosted on a
@@ -79,27 +90,36 @@ public class BluetoothLeService extends Service implements EasyPermissions.Permi
             UUID.fromString(SampleGattAttributes.ML_PREDICT);
 
     private static final int PERMISSION_REQUEST_CODE = 123;
+    private static final String CHANNEL_ID = "device_hatcheries_channel";
+    private List<Notifications> notificationsList = new ArrayList<>();
     // Store the connected device addresses
     private Set<String> connectedDeviceAddresses = new HashSet<>();
     private bleSensorData sensorData = new bleSensorData();
+
     // Define a listener interface
     public interface ConnectionListener {
         void onDeviceConnected(String deviceAddress);
+
         void onDeviceDisconnected(String deviceAddress);
     }
+
     // Declare an instance variable for the listener
     private ConnectionListener connectionListener;
+
     // Set the listener
     public void setConnectionListener(ConnectionListener listener) {
         this.connectionListener = listener;
     }
+
     private static List<HatcheryStateListener> hatcheryStateListeners = new ArrayList<>();
+
     @Override
     public void onCreate() {
         super.onCreate();
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
 
     }
+
     private static IntentFilter makeGattUpdateIntentFilter() {
         final IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(BluetoothLeService.ACTION_GATT_CONNECTED);
@@ -109,6 +129,7 @@ public class BluetoothLeService extends Service implements EasyPermissions.Permi
         return intentFilter;
 
     }
+
     // Implements callback methods for GATT events that the app cares about.  For example,
     // connection change and services discovered.
     private final BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
@@ -194,18 +215,19 @@ public class BluetoothLeService extends Service implements EasyPermissions.Permi
             BluetoothGattCharacteristic characteristic = characteristics.get(0);
             if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
 
-            } else{
+            } else {
                 gatt.setCharacteristicNotification(characteristic, true);
             }
             characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT);
 
             UUID uuid = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
             BluetoothGattDescriptor descriptor = characteristic.getDescriptor(uuid);
-            if(descriptor != null) {
+            if (descriptor != null) {
                 descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
                 gatt.writeDescriptor(descriptor);
             }
         }
+
         @Override
         public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
             super.onDescriptorWrite(gatt, descriptor, status);
@@ -277,12 +299,13 @@ public class BluetoothLeService extends Service implements EasyPermissions.Permi
 
         sendBroadcast(intent);
     }
+
     private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
-                Toast.makeText(getApplicationContext(), "Paired succsefulyl",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Paired succsefulyl", Toast.LENGTH_SHORT).show();
                 if (connectionListener != null) {
                     connectionListener.onDeviceConnected(mBluetoothDevice.getAddress());
                 }
@@ -304,16 +327,26 @@ public class BluetoothLeService extends Service implements EasyPermissions.Permi
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 //displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
                 String data;
-                if(intent.hasExtra("PRESSURE")) {
+                if (intent.hasExtra("PRESSURE")) {
                     data = intent.getStringExtra("PRESSURE");
                     sensorData.setPressure(data);
 
-                }else if(intent.hasExtra("ML_PRED")) {
+                } else if (intent.hasExtra("ML_PRED")) {
                     data = intent.getStringExtra("ML_PRED");
-                    if(data.equals("1"))
-                    {
+                    if (data.equals("1")) {
                         sensorData.setEggPresence(true);
-                    }else {
+                        // Create a Date object representing the current time
+                        Date currentTime = new Date();
+
+                        // Create a SimpleDateFormat object to format the timestamp
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                        // Format the current time as a timestamp
+                        String timestamp = dateFormat.format(currentTime);
+                        // Create a Notification object
+                        Notifications notification = new Notifications(mBluetoothDeviceAddress, "EggDetected", "Egg was detected in a hatchery",timestamp);
+                        sendNotification(notification);
+                    } else {
                         sensorData.setEggPresence(false);
                     }
 
@@ -328,9 +361,11 @@ public class BluetoothLeService extends Service implements EasyPermissions.Permi
             }
         }
     };
+
     public BluetoothGatt getBluetoothGatt() {
         return mBluetoothGatt;
     }
+
     public class LocalBinder extends Binder {
         public BluetoothLeService getService() {
             return BluetoothLeService.this;
@@ -350,13 +385,14 @@ public class BluetoothLeService extends Service implements EasyPermissions.Permi
         //close();
         return super.onUnbind(intent);
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
 
         unregisterReceiver(mGattUpdateReceiver);
         // Close the Bluetooth GATT connection when the service is destroyed
-       // close();
+        // close();
     }
 
     public void closeConnection() {
@@ -364,6 +400,7 @@ public class BluetoothLeService extends Service implements EasyPermissions.Permi
         close();
 
     }
+
     private final IBinder mBinder = new LocalBinder();
 
     /**
@@ -451,12 +488,12 @@ public class BluetoothLeService extends Service implements EasyPermissions.Permi
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                 // Permission has not been granted, request it
                 ActivityCompat.requestPermissions((Activity) getApplicationContext(), new String[]{Manifest.permission.BLUETOOTH_CONNECT}, PERMISSION_REQUEST_CODE);
-            } else
-            {
+            } else {
                 mBluetoothGatt.connect();
             }
         }
     }
+
     /**
      * Disconnects an existing connection or cancel a pending connection. The disconnection result
      * is reported asynchronously through the
@@ -534,8 +571,7 @@ public class BluetoothLeService extends Service implements EasyPermissions.Permi
         }
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions((Activity) getApplicationContext(), new String[]{Manifest.permission.BLUETOOTH_CONNECT}, PERMISSION_REQUEST_CODE);
-        }else
-        {
+        } else {
             mBluetoothGatt.setCharacteristicNotification(characteristic, enabled);
             BluetoothGattDescriptor descriptor = characteristic.getDescriptor(
                     UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
@@ -548,8 +584,7 @@ public class BluetoothLeService extends Service implements EasyPermissions.Permi
         if (UUID_HEART_RATE_MEASUREMENT.equals(characteristic.getUuid()) ||
                 UUID_TEMPERATURE.equals(characteristic.getUuid()) ||
                 UUID_HUMIDITY.equals(characteristic.getUuid()) ||
-                UUID_ML_PREDICT.equals(characteristic.getUuid()))
-        {
+                UUID_ML_PREDICT.equals(characteristic.getUuid())) {
             BluetoothGattDescriptor descriptor = characteristic.getDescriptor(
                     UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
             descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
@@ -569,8 +604,9 @@ public class BluetoothLeService extends Service implements EasyPermissions.Permi
 
         return mBluetoothGatt.getServices();
     }
+
     @Override
-    public void onRequestPermissionsResult(int requestCode,  String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
         // Forward results to EasyPermissions
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
@@ -592,10 +628,11 @@ public class BluetoothLeService extends Service implements EasyPermissions.Permi
         // Update the hatchery state
         notifyHatcheryStateChanged(sensorData);
     }
-    public bleSensorData getSensorData()
-    {
+
+    public bleSensorData getSensorData() {
         return sensorData;
     }
+
     public static void addHatcheryStateListener(HatcheryStateListener listener) {
         hatcheryStateListeners.add(listener);
     }
@@ -609,6 +646,7 @@ public class BluetoothLeService extends Service implements EasyPermissions.Permi
             listener.onHatcheryStateChanged(sensorData);
         }
     }
+
     // Method to check if a device is connected
     public boolean isDeviceConnected(String deviceAddress) {
         return connectedDeviceAddresses.contains(deviceAddress);
@@ -628,5 +666,50 @@ public class BluetoothLeService extends Service implements EasyPermissions.Permi
         connectedDeviceAddresses.remove(deviceAddress);
         // Update the UI or perform any necessary operations
         // ...
+    }
+
+    private int generateUniqueNotificationId() {
+        return (int) System.currentTimeMillis();
+    }
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "EggAlert";
+            String description = "Egg presence notifications";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+
+            // Register the channel with the system
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+    private void sendNotification(Notifications notification) {
+        // Assign a unique identifier to the notification
+        int notificationId = generateUniqueNotificationId();
+        // Store the notification in the notification history data source
+        //notificationHistoryList.add(notification);
+        // Create a notification channel (for Android 8.0 and above)
+        createNotificationChannel();
+        // Create the notification
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.egg_alert_symbol)
+                .setContentTitle("Egg Detected")
+                .setContentText(notification.getMessage())
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+
+        // Show the notification
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+        }
+        notificationManager.notify(notificationId, builder.build());
+
+        notificationsList.add(notification);
+
+    }
+    public List<Notifications> getNotificationsList()
+    {
+        return notificationsList;
     }
 }

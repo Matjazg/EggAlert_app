@@ -1,22 +1,27 @@
 package si.uni_lj.fe.tnuv.eggalert_v1.DeviceList;
 
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class LeDeviceListAdapter {
-    /*
+import si.uni_lj.fe.tnuv.eggalert_v1.Hatcheries.Hatchery;
+import si.uni_lj.fe.tnuv.eggalert_v1.R;
+
+// Adapter for holding devices found through scanning.
+public class LeDeviceListAdapter extends BaseAdapter {
     private ArrayList<BluetoothDevice> mLeDevices;
     private LayoutInflater mInflator;
 
-    public LeDeviceListAdapter() {
+    public LeDeviceListAdapter(Context context, ArrayList<BluetoothDevice> list) {
         super();
-        mLeDevices = new ArrayList<BluetoothDevice>();
-        mInflator = this.getLayoutInflater();
+        mLeDevices = list;
+        mInflator = LayoutInflater.from(context);
     }
 
     public void addDevice(BluetoothDevice device) {
@@ -67,9 +72,13 @@ public class LeDeviceListAdapter {
         if (deviceName != null && deviceName.length() > 0)
             viewHolder.deviceName.setText(deviceName);
         else
-            viewHolder.deviceName.setText(R.string.unknown_device);
+            viewHolder.deviceName.setText("unknown device");
         viewHolder.deviceAddress.setText(device.getAddress());
 
         return view;
-    }*/
+    }
+    static class ViewHolder {
+        TextView deviceName;
+        TextView deviceAddress;
+    }
 }
