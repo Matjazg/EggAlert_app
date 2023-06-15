@@ -11,16 +11,19 @@ The workflow of the Egg Alert app's Bluetooth connection is as follows:
 <p align="left">
   <img src="image2.jpg" alt="Example Image 2" height="600">
 </p>
+
 2. To register a hatchery, click on the Hatcheries tab and select Add Hatchery.
 <p align="left">
   <img src="image3.jpg" alt="Example Image 1" height="600">
 </p>
+
 3. The app scans for available Bluetooth devices in the vicinity. It specifically looks for devices that advertise with the correct local name, indicating an Egg Alert device.
 
 4. If the app finds a device, establish a connection with it.
 <p align="left">
   <img src="image4.jpg" alt="Example Image 1" height="600">
 </p>
+
 5. The app starts monitoring the Egg Alert device for any new egg detections.
 
 6. Whenever a new egg is detected by the Egg Alert device, it sends a notification to the app via Bluetooth.
