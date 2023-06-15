@@ -41,7 +41,7 @@ This comprehensive analysis enables users to make data-driven decisions in optim
   <img src="image5.jpg" alt="Example Image 1" height="600">
 </p>
 
-[![Example YouTube Video](image6.png)]([https://www.youtube.com/watch?v=VIDEO_ID](https://www.youtube.com/watch?v=jqXnQaSRyck&ab_channel=EggAlert))
+[![Example YouTube Video](image6.png)](https://www.youtube.com/watch?v=jqXnQaSRyck&ab_channel=EggAlert)
 
 ## Getting Started
 
